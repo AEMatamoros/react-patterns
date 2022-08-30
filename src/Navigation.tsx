@@ -1,15 +1,36 @@
 import { Suspense } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  NavLink,
+} from "react-router-dom";
 import { routes } from "./routes";
 export default function Navigation() {
   return (
     <>
-      <nav className="nav">
-        <ul className="ul">
-          <li className="li">Compound-Components</li>
-        </ul>
-      </nav>
       <BrowserRouter>
+        <nav className="nav">
+          <ul
+            className="ul"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-evenly",
+              width: "100%",
+            }}
+          >
+            {routes.map((route, index) => {
+              return (
+                <NavLink to={route.to} key={index}>
+                  {route.name}
+                </NavLink>
+              );
+            })}
+          </ul>
+        </nav>
         <Routes>
           {routes.map(({ path, name, Component, nested }) => {
             return (

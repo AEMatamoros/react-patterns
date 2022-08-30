@@ -8,18 +8,21 @@ const product = {
 
 export default function ShopingPage() {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-      }}
-    >
-      <ProductCard product={product}>
-        <ProductCard.Image />
-        <ProductCard.Title />
-        <ProductCard.Buttons />
-      </ProductCard>
-    </div>
+    <>
+      <h1>Compound Component</h1>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
+        <ProductCard product={product}>
+          <ProductCard.Image />
+          <ProductCard.Title />
+          <ProductCard.Buttons />
+        </ProductCard>
+      </div>
+    </>
   );
 }
