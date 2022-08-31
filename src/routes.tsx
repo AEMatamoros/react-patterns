@@ -12,6 +12,7 @@ interface iRouter {
 //Components
 import ShopingPage from "./compound-component/pages/ShopingPage";
 import ShopingPageES from "./extensible-styles/pages/ShopingPageES";
+import ShopingPageCP from "./control-props/pages/ShopingPageCP";
 
 export const routes: iRouter[] = [
   {
@@ -25,5 +26,11 @@ export const routes: iRouter[] = [
     path: "/es",
     name: "Extensible Styles",
     Component: ShopingPageES,
+  },
+  {
+    to: "/cp",
+    path: "/cp",
+    name: "Control Props",
+    Component: ShopingPageCP,
   },
 ];
