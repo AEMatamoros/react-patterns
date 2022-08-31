@@ -17,8 +17,13 @@ export default function ProductCard({
   className,
   style,
   onChange,
+  value,
 }: iProps) {
-  const { counter, handleCounterValue } = UseProduct({ product, onChange });
+  const { counter, handleCounterValue } = UseProduct({
+    product,
+    onChange,
+    value,
+  });
 
   return (
     <Provider value={{ counter, handleCounterValue, product }}>

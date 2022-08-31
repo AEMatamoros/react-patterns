@@ -6,11 +6,14 @@ import "../styles/customStyles.css";
 export interface iProduct {
   id: number;
   title: string;
-  img: string;
+  img?: string;
 }
 
 export interface iProductInCart {
   count: number;
+  title: string;
+  img?: string;
+  id: number;
 }
 const products = [
   {
@@ -31,7 +34,17 @@ export default function ShopingPageCP() {
   }>();
 
   const onProductChange = ({ count, product }: iOnChangeArgs) => {
-    console.log(count, product);
+    setshopingcart((oldShopingCartState) => {
+      if (count === 0) {
+        !!oldShopingCartState && delete oldShopingCartState[product.id];
+        return { ...oldShopingCartState };
+      }
+
+      return {
+        ...oldShopingCartState,
+        [product.id]: { ...product, count },
+      };
+    });
   };
 
   return (
@@ -65,20 +78,27 @@ export default function ShopingPageCP() {
       </div>
 
       <div className="shopping-cart">
-        <ProductCard
-          product={products[0]}
-          className="bg-dark"
-          style={{ width: "150px" }}
-          key={products[0].id}
-        >
-          <ProductCard.Image className="customImg" />
-          <ProductCard.Title
-            style={{
-              color: "white",
-            }}
-          />
-          <ProductCard.Buttons className="darkMode-buttons" />
-        </ProductCard>
+        {shopingcart &&
+          Object.entries(shopingcart).map(([key, product]) => {
+            return (
+              <ProductCard
+                product={product}
+                className="bg-dark"
+                style={{ width: "150px" }}
+                key={key}
+                onChange={(event) => onProductChange(event)}
+                value={product.count}
+              >
+                <ProductCard.Image className="customImg" />
+                <ProductCard.Title
+                  style={{
+                    color: "white",
+                  }}
+                />
+                <ProductCard.Buttons className="darkMode-buttons" />
+              </ProductCard>
+            );
+          })}
       </div>
     </>
   );

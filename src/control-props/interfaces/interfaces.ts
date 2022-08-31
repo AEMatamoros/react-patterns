@@ -6,6 +6,7 @@ export interface iProps {
   className?: string; // Para poder extender los estilos por defecto
   style?: React.CSSProperties;
   onChange?: (args: iOnChangeArgs) => void;
+  value?: number;
 }
 
 export interface iProduct {
