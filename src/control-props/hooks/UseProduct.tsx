@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { iOnChangeArgs, iProduct } from "../interfaces/interfaces";
 
 export interface iUseProductProps {
@@ -13,8 +13,13 @@ export default function UseProduct({
   value = 0,
 }: iUseProductProps) {
   const [counter, setcounter] = useState(0);
+  const isControlled = useRef(!!onChange);
 
-  const handleCounterValue = (amount = 1): void => {
+  const handleCounterValue = (amount: number): void => {
+    if (isControlled.current) {
+      return onChange!({ count: amount, product });
+    }
+
     let count = Math.max(counter + amount, 0);
     setcounter(count);
     onChange && onChange({ product, count });

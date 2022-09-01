@@ -31,19 +31,24 @@ const products = [
 export default function ShopingPageCP() {
   const [shopingcart, setshopingcart] = useState<{
     [key: string]: iProductInCart;
-  }>();
+  }>({});
 
   const onProductChange = ({ count, product }: iOnChangeArgs) => {
     setshopingcart((oldShopingCartState) => {
-      if (count === 0) {
-        !!oldShopingCartState && delete oldShopingCartState[product.id];
-        return { ...oldShopingCartState };
+      const productInCart: iProductInCart = oldShopingCartState[product.id] || {
+        ...product,
+        count: 0,
+      };
+      if (Math.max(productInCart.count + count, 0) > 0) {
+        productInCart.count += count;
+        return {
+          ...oldShopingCartState,
+          [product.id]: productInCart,
+        };
       }
 
-      return {
-        ...oldShopingCartState,
-        [product.id]: { ...product, count },
-      };
+      !!oldShopingCartState && delete oldShopingCartState[product.id];
+      return { ...oldShopingCartState };
     });
   };
 
@@ -64,6 +69,7 @@ export default function ShopingPageCP() {
               className="bg-dark"
               key={product.id}
               onChange={(event) => onProductChange(event)}
+              value={!!shopingcart ? shopingcart[product.id]?.count || 0 : 0}
             >
               <ProductCard.Image className="customImg" />
               <ProductCard.Title
@@ -87,7 +93,7 @@ export default function ShopingPageCP() {
                 style={{ width: "150px" }}
                 key={key}
                 onChange={(event) => onProductChange(event)}
-                value={product.count}
+                value={shopingcart[product.id]?.count || 0}
               >
                 <ProductCard.Image className="customImg" />
                 <ProductCard.Title
