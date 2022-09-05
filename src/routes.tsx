@@ -13,6 +13,7 @@ interface iRouter {
 import ShopingPage from "./compound-component/pages/ShopingPage";
 import ShopingPageES from "./extensible-styles/pages/ShopingPageES";
 import ShopingPageCP from "./control-props/pages/ShopingPageCP";
+import ShopingPageEI from "./state-initializer/pages/ShopingPageEI";
 
 export const routes: iRouter[] = [
   {
@@ -32,5 +33,11 @@ export const routes: iRouter[] = [
     path: "/cp",
     name: "Control Props",
     Component: ShopingPageCP,
+  },
+  {
+    to: "/ei",
+    path: "/ei",
+    name: "State Initializer",
+    Component: ShopingPageEI,
   },
 ];
